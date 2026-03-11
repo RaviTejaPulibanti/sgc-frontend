@@ -1,10 +1,10 @@
-import PageUnderConstruction from '@/components/PageUnderContruction'
+import ExecutiveBoard from '@/components/Executive'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <PageUnderConstruction />
+      <ExecutiveBoard />
     </div>
   )
 }
