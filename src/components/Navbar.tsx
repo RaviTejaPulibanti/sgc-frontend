@@ -51,7 +51,7 @@ const Navbar = () => {
         { name: 'Advisory Board', path: '/advisory', icon: UserCog },
         { name: 'Executive Board', path: '/executive', icon: UsersRound },
         { name: 'Members', path: '/members', icon: Users2 },
-        { name: 'Web Team', path: '/board/web-team', icon: Code2 }
+        { name: 'Web Team', path: '/webteam', icon: Code2 }
       ]
     },
     { 

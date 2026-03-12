@@ -61,11 +61,11 @@ const AdvisoryBoard = () => {
   const boardMembers: BoardMember[] = [
     {
       id: 1,
-      name: "Prof. K. V. G. D. Balaji",
+      name: "Dr. Amarendra Kumar Sandra",
       position: "Director",
       department: "University Leadership",
       image: "/advisoryboard/director.webp",
-      bio: "Distinguished professor with 25 years of academic leadership experience. Spearheading our strategic initiatives and global partnerships. Authored several influential papers on educational reform. Committed to fostering innovation and excellence in higher education through transformative leadership and strategic vision.",
+      bio: "Dr. Amarendra Kumar Sandra is a highly accomplished academician and researcher with extensive expertise in transportation engineering and civil engineering. He holds a Ph.D. in Transportation Engineering from Birla Institute of Technology and Science (BITS), Pilani, Rajasthan, completed in April 2008. He earned his M.Tech. in Transportation Engineering from the Indian Institute of Technology (IIT), Kharagpur, and TU-Darmstadt, Germany, in March 2003, where he was awarded the prestigious Dr. Shanker Dayal Sharma Gold Medal for being the best all-rounder and the Institute Silver Medal for being the department topper. He also holds a B.Tech.",
       linkedin: "#",
       email: "director@university.edu",
       website: "https://university.edu/director",
