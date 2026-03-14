@@ -1,9 +1,9 @@
+// src/app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./Providers";
 import Navbar from "@/components/Navbar";
-import LatestUpdates from "@/components/LatestUpdates";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,8 +43,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Navbar />
-          {/* LatestUpdates component - shows on all pages */}
-          {/* <LatestUpdates /> */}
           <main className="min-h-screen">{children}</main>
         </Providers>
       </body>

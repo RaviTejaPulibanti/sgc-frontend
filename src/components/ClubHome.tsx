@@ -1,40 +1,24 @@
-// app/components/ClubHome.tsx
+// src/components/ClubHome.tsx
 "use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-import { clubsData } from "@/app/data/clubsData";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const cardVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut"
-    }
-  },
-  hover: {
-    y: -8,
-    transition: {
-      duration: 0.2
-    }
-  }
-};
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useTheme } from 'next-themes';
+import { 
+  Users, 
+  Calendar, 
+  Trophy, 
+  ArrowRight,
+  Sparkles,
+  GraduationCap,
+  Palette,
+  Code,
+  Music,
+  Camera,
+  BookOpen
+} from 'lucide-react';
 
 const ClubHome = () => {
   const { theme } = useTheme();
@@ -46,154 +30,298 @@ const ClubHome = () => {
 
   if (!mounted) return null;
 
+  const stats = [
+    { label: 'Active Clubs', value: '19+', icon: Users, color: 'from-blue-500 to-blue-600' },
+    { label: 'Events Yearly', value: '50+', icon: Calendar, color: 'from-purple-500 to-purple-600' },
+    { label: 'Achievements', value: '100+', icon: Trophy, color: 'from-yellow-500 to-yellow-600' },
+    { label: 'Active Members', value: '500+', icon: GraduationCap, color: 'from-green-500 to-green-600' },
+  ];
+
+  const clubCategories = [
+    { name: 'Technical', icon: Code, color: 'blue', clubs: ['Coding Club', 'Robotics', 'AI/ML'] },
+    { name: 'Cultural', icon: Music, color: 'purple', clubs: ['Music Club', 'Dance Club', 'Drama'] },
+    { name: 'Arts', icon: Palette, color: 'pink', clubs: ['Fine Arts', 'Photography', 'Design'] },
+    { name: 'Academic', icon: BookOpen, color: 'green', clubs: ['Quiz Club', 'Debate', 'Literature'] },
+  ];
+
+  const featuredEvents = [
+    {
+      id: 1,
+      title: 'Tech Fest 2026',
+      club: 'Technical Council',
+      date: 'March 15-20',
+      image: '/events/techfest.jpg',
+    },
+    {
+      id: 2,
+      title: 'Cultural Night',
+      club: 'Cultural Council',
+      date: 'April 5',
+      image: '/events/cultural.jpg',
+    },
+    {
+      id: 3,
+      title: 'Sports Meet',
+      club: 'Sports Council',
+      date: 'April 10-15',
+      image: '/events/sports.jpg',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 py-16 px-4 relative overflow-hidden">
-      
-      {/* Animated Background Elements */}
-      <motion.div 
-        className="absolute w-96 h-96 bg-blue-200 dark:bg-blue-900/20 rounded-full blur-3xl opacity-30"
-        initial={{ x: -200, y: -200 }}
-        animate={{ 
-          x: ["-10%", "90%", "90%", "-10%", "-10%"],
-          y: ["-10%", "-10%", "80%", "80%", "-10%"],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
-      <motion.div 
-        className="absolute w-96 h-96 bg-purple-200 dark:bg-purple-900/20 rounded-full blur-3xl opacity-30"
-        initial={{ x: "80%", y: "80%" }}
-        animate={{ 
-          x: ["90%", "-10%", "-10%", "90%", "90%"],
-          y: ["90%", "90%", "-10%", "-10%", "90%"],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-sm font-semibold mb-4 tracking-wider">
-            DISCOVER
-          </span>
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
-            Explore Our <span className="text-blue-600 dark:text-blue-400">Clubs</span>
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Find your passion and join like-minded individuals in our diverse community of clubs
-          </p>
-          <div className="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mt-6 rounded-full"></div>
-        </motion.div>
-
-        {/* Clubs Grid */}
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {clubsData.map((club) => (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white">
+        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:60px_60px]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        
+        <div className="relative max-w-7xl mx-auto px-4 py-24 sm:py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
             <motion.div
-              key={club.id}
-              whileHover="hover"
-              className="group"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+              className="inline-flex items-center justify-center p-2 bg-white/20 backdrop-blur-sm rounded-full mb-8"
             >
-              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 h-full flex flex-col">
-                
-                {/* Image Container */}
-                <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600">
-                  <Image
-                    src={club.heroImage}
-                    alt={club.name1}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                  
-                  {/* Club Badge */}
-                  <div className="absolute top-3 right-3">
-                    <span className="px-3 py-1 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm text-blue-600 dark:text-blue-400 text-xs font-bold rounded-full shadow-lg">
-                      {new Date().getFullYear() - club.founded}+ Years
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-5 flex-1 flex flex-col">
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-1">
-                    {club.name1} {club.name2 || ""} Club
-                  </h2>
-                  
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2 flex-1">
-                    {club.description || "Join our community of passionate individuals"}
-                  </p>
-
-                  {/* Stats */}
-                  <div className="flex items-center gap-4 mb-4 text-xs text-gray-500 dark:text-gray-500">
-                    <span className="flex items-center gap-1">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                      </svg>
-                      {club.members.length}+ Members
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      {club.events.length}+ Events
-                    </span>
-                  </div>
-
-                  {/* View Club Button */}
-                  <Link href={`/clubs/${club.id}`} className="block">
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full px-4 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-sm font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20"
-                    >
-                      <span>Explore Club</span>
-                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                    </motion.button>
-                  </Link>
-                </div>
-              </div>
+              <Sparkles className="w-5 h-5 mr-2" />
+              <span className="text-sm font-medium">Welcome to Student Gymkhana Center</span>
             </motion.div>
-          ))}
-        </motion.div>
 
-        {/* View All Button */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="text-center mt-12"
-        >
-          <Link href="/clubs">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 bg-transparent border-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-400 dark:hover:text-gray-900 font-semibold rounded-full transition-all duration-300"
-            >
-              View All Clubs
-            </motion.button>
-          </Link>
-        </motion.div>
-      </div>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6">
+              Discover Your
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-pink-300">
+                Passion
+              </span>
+            </h1>
+            
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-10">
+              Join 19+ vibrant clubs, participate in exciting events, and be part of a community that celebrates talent, creativity, and leadership.
+            </p>
+
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link
+                href="/clubs"
+                className="px-8 py-4 bg-white text-blue-600 rounded-full font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300"
+              >
+                Explore Clubs
+              </Link>
+              <Link
+                href="/events"
+                className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-full font-semibold hover:bg-white/30 hover:scale-105 transition-all duration-300"
+              >
+                View Events
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-20">
+            {stats.map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                  className="text-center"
+                >
+                  <div className={`inline-flex p-3 bg-gradient-to-br ${stat.color} rounded-xl mb-3`}>
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-2xl font-bold">{stat.value}</div>
+                  <div className="text-sm text-blue-100">{stat.label}</div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Wave Divider */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-auto">
+            <path fill="var(--background)" fillOpacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,170.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+          </svg>
+        </div>
+      </section>
+
+      {/* Club Categories */}
+      <section className="py-20 px-4 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Club Categories
+            </h2>
+            <p className="text-foreground-secondary max-w-2xl mx-auto">
+              Explore diverse clubs across multiple categories. Find your passion and join a community of like-minded individuals.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {clubCategories.map((category, index) => {
+              const Icon = category.icon;
+              const colors = {
+                blue: 'from-blue-500 to-blue-600',
+                purple: 'from-purple-500 to-purple-600',
+                pink: 'from-pink-500 to-pink-600',
+                green: 'from-green-500 to-green-600',
+              };
+              
+              return (
+                <motion.div
+                  key={category.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="group cursor-pointer"
+                >
+                  <div className="bg-card-bg rounded-2xl p-6 border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className={`inline-flex p-3 bg-gradient-to-br ${colors[category.color as keyof typeof colors]} rounded-xl mb-4 group-hover:scale-110 transition-transform`}>
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    
+                    <h3 className="text-xl font-bold text-foreground mb-3">{category.name}</h3>
+                    
+                    <ul className="space-y-2 mb-4">
+                      {category.clubs.map((club) => (
+                        <li key={club} className="text-foreground-secondary text-sm flex items-center">
+                          <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
+                          {club}
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <Link
+                      href={`/clubs?category=${category.name.toLowerCase()}`}
+                      className="inline-flex items-center text-primary hover:text-primary-hover font-medium text-sm group/link"
+                    >
+                      Explore {category.name} Clubs
+                      <ArrowRight className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Events */}
+      <section className="py-20 px-4 bg-background-secondary">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Featured Events
+            </h2>
+            <p className="text-foreground-secondary max-w-2xl mx-auto">
+              Don't miss out on these upcoming events. Register now and be part of something amazing.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredEvents.map((event, index) => (
+              <motion.div
+                key={event.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <div className="bg-card-bg rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-300">
+                  <div className="relative h-48 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                    <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-400 group-hover:scale-110 transition-transform duration-500" />
+                    
+                    <div className="absolute bottom-4 left-4 z-20">
+                      <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs rounded-full">
+                        {event.club}
+                      </span>
+                    </div>
+                    
+                    <div className="absolute top-4 right-4 z-20">
+                      <span className="px-3 py-1 bg-primary text-white text-xs rounded-full">
+                        Featured
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                      {event.title}
+                    </h3>
+                    
+                    <div className="flex items-center text-foreground-secondary text-sm mb-4">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      {event.date}
+                    </div>
+                    
+                    <Link
+                      href={`/events/${event.id}`}
+                      className="inline-flex items-center text-primary hover:text-primary-hover font-medium"
+                    >
+                      Learn More
+                      <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Ready to Make a Difference?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8">
+              Join a club, participate in events, and create memories that last a lifetime.
+            </p>
+            
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link
+                href="/subscribe"
+                className="px-8 py-4 bg-white text-blue-600 rounded-full font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300"
+              >
+                Subscribe for Updates
+              </Link>
+              <Link
+                href="/contact"
+                className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-full font-semibold hover:bg-white/30 hover:scale-105 transition-all duration-300"
+              >
+                Contact Us
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 };
